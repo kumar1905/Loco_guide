@@ -191,7 +191,7 @@ footer {
     bottom: 0;
 }
 
-.animated-shape {
+/* .animated-shape {
     position: absolute;
     top: -50px;
     left: 0;
@@ -199,7 +199,7 @@ footer {
     height: 150px;
     background: linear-gradient(135deg, #007BFF, #6f42c1);
     animation: waveAnimation 10s infinite ease-in-out;
-}
+} */
 
 /* @keyframes waveAnimation {
     0% {
