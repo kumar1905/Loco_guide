@@ -201,7 +201,7 @@ footer {
     animation: waveAnimation 10s infinite ease-in-out;
 }
 
-@keyframes waveAnimation {
+/* @keyframes waveAnimation {
     0% {
         transform: translateY(0);
     }
@@ -211,7 +211,7 @@ footer {
     100% {
         transform: translateY(0);
     }
-}
+} */
 
 .modal {
     display: none;
