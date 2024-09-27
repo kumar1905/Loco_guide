@@ -191,27 +191,7 @@ footer {
     bottom: 0;
 }
 
-/* .animated-shape {
-    position: absolute;
-    top: -50px;
-    left: 0;
-    right: 0;
-    height: 150px;
-    background: linear-gradient(135deg, #007BFF, #6f42c1);
-    animation: waveAnimation 10s infinite ease-in-out;
-} */
 
-/* @keyframes waveAnimation {
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(20px);
-    }
-    100% {
-        transform: translateY(0);
-    }
-} */
 
 .modal {
     display: none;
