@@ -8,7 +8,7 @@ This project is purposed for public having problems while travelling on railway 
 <br/>
 This project was Made purely by ourselves , Me <br/>
 
-**Nakul Makode** and **Ansh Choube** .
+**Nakul Makode** and **Ansh Choube** and **Yogeshwar Tiwari**.
 <br/>
 <br/>
 
