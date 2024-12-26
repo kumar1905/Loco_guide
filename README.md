@@ -77,7 +77,7 @@ Once aboard and fed, they set an **alarm** at their destination station, content
 
 
 <br/>
-This project is purposed for public having problems while travelling on railway stations in unknown regions . This helps people in getting them to their desired locations with smallest path and enhancing their journy to a greater extent. The project is powered with AI based crowd detection and AR navigation . This project was associated with SIH 2024 under PS1710. 
+This project is purposed for public having problems while travelling on railway stations in unknown regions . This helps people in getting them to their desired locations with smallest path and enhancing their journey to a greater extent. The project is powered with AI based crowd detection and AR navigation . This project was associated with SIH 2024 under PS1710. 
 <br/>
 This project was Made purely by ourselves , <br/>
 
