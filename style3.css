@@ -76,6 +76,11 @@ nav ul li a {
     color: white;
 }
 
+.just{
+    border: none;
+    font-size: 24px;
+}
+
 .options {
     display: flex;
     justify-content: center;
