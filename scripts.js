@@ -6,7 +6,7 @@ document.getElementById('loginBtn').addEventListener('click', function() {
     document.getElementById('signupBtn').classList.remove('active');
 });
 
-document.getElementById('signupBtn').addEventListener('click', function() {
+document.getElementById('signupBtn ').addEventListener('click', function() {
     document.getElementById('signupForm').classList.remove('hidden');
     document.getElementById('loginForm').classList.add('hidden');
     document.getElementById('forgotForm').classList.add('hidden');
