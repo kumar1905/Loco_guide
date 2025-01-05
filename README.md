@@ -34,7 +34,7 @@ or you can just read the description for more details .
 
 ### 5. Estimated Time and Distance
    - **Distance to Destination**: The moment that one picks up a facility or platform, the app begins to calculate and display the distance (in kilometers or meters) from the current location.
-- **Time Estimate**: With the use of an estimate of a user's walking speed and route, this application informs them of how much time it will take to reach a destination they seek; it is very helpful for travelers who have to abide by a strict schedule【7†source】.
+- **Time Estimate**: With the use of an estimate of a user's walking speed and route, this application informs them of how much time it will take to reach a destination they seek; it is very helpful for travelers who have to abide by a strict schedule 【7†source】.
 
 ### 6. Alarm and Notification System
 - **Proximity alerts**: The application will alert a user approaching, for instance, either a food stall or a restroom; it will also alert the user that they are approaching the end of their platform
