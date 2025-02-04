@@ -4,7 +4,7 @@ for detailed explanation watch this YouTube Video:-**https://www.youtube.com/wat
 <br>
 or you can just read the description for more details .  
  
-# Railway Navigator  
+# Railway Navigator   
    
 **Railway Navigator** app enhances the navigation experience within railway stations through the integration of real-time data, augmented reality technology, and vital station information. Here is an in-depth view about how the **Railway Station Navigation** system functions through the application interface: 
   
