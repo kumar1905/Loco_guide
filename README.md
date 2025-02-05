@@ -13,7 +13,7 @@ or you can just read the description for more details .
 - **Locate Facilities**: App users may look for any number of different facilities, including food stalls, toilets, waiting areas, and so on. It will show them the nearest available facility and send them in the right direction to get there.  
        
 ### 2. AR Navigation    
-- **AR Navigation**: The end users are navigated through the station using **3D AR arrow** overlaid on the camera feed once AR mode is turned on, that point out to key facilities and exits. 
+- **AR Navigation**: The end users are navigated through the station using **3D AR arrow** overlaid on the camera feed once AR mode is turned on, that point out to key facilities and exits.  
 - **Dynamic Updating of AR Directions**: The AR system updates immediately on the basis of movements to ensure arrows always point in the right direction toward the chosen facility or platform.
    - **Graphic Directional Indicators**: In addition to arrows, other AR graphics like symbols for **vending machines for food, washrooms, and platforms** appear in the camera view to make the experience friendly and interactive for users .  
   
