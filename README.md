@@ -39,7 +39,7 @@ or you can just read the description for more details .
 ### 6. Alarm and Notification System
 - **Proximity alerts**: The application will alert a user approaching, for instance, either a food stall or a restroom; it will also alert the user that they are approaching the end of their platform
    - **Alarm on stations**: Users have reminders on approaching stations. The feature ensures that users do not miss a stop even when busy in an activity, either sleeping or eating.
- 
+  
 #### 7. Crowd Density Indicators
    Crowd Density Information - Real-Time: In stations, crowd density is a problem especially during peak times. In the app, real-time crowd density data is shown for locations within the station:
 - **Low, Medium and High Density**: The application utilizes a bar that will turn colour depending on how busy a space is. These help users avoid really busy or congested places or find areas that are less noisy .
