@@ -24,7 +24,7 @@ or you can just read the description for more details .
 - **ATMs**: For users that will use cash, the map and augmented reality views show the nearest ATMs.
   Wheelchair Accessible: Stations providing accessible areas are noted in case users require such accessibility needs.   
 - **Platform Information**: As users reach the platforms, actual platform information like train schedules and numbers appears in the AR view so that users can quickly access important information without an app switch. 
- 
+  
 ### 4. Map View for Station Layout  
 - **Interactive Map**: Users can toggle to a standard map view in order to see a full layout of the station. The map displays:
 - **Location of the User Currently**: It is marked with a pin for easy identification by users of where they are
