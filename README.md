@@ -15,7 +15,7 @@ or you can just read the description for more details .
 ### 2. AR Navigation     
 - **AR Navigation**: The end users are navigated through the station using **3D AR arrow** overlaid on the camera feed once AR mode is turned on, that point out to key facilities and exits.  
 - **Dynamic Updating of AR Directions**: The AR system updates immediately on the basis of movements to ensure arrows always point in the right direction toward the chosen facility or platform.
-   - **Graphic Directional Indicators**: In addition to arrows, other AR graphics like symbols for **vending machines for food, washrooms, and platforms** appear in the camera view to make the experience friendly and interactive for users .  
+   - **Graphic Directional Indicators**: In addition to arrows, other AR graphics like symbols for **vending machines for food, washrooms, and platforms** appear in the camera view to make the experience friendly and interactive for users .   
   
 ### 3. Facility Information and Amenities     
    - The app sheds light on the most important facilities or amenities on the railway station, such as:   
