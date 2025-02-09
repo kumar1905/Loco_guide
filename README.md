@@ -17,7 +17,7 @@ or you can just read the description for more details .
 - **Dynamic Updating of AR Directions**: The AR system updates immediately on the basis of movements to ensure arrows always point in the right direction toward the chosen facility or platform.
    - **Graphic Directional Indicators**: In addition to arrows, other AR graphics like symbols for **vending machines for food, washrooms, and platforms** appear in the camera view to make the experience friendly and interactive for users .  
   
-### 3. Facility Information and Amenities    
+### 3. Facility Information and Amenities     
    - The app sheds light on the most important facilities or amenities on the railway station, such as:   
      - Toilets. Distinguish with signboards so that you know where the nearest toilet is located  
      - Movable or stationary food courts/stalls: The app could take you to railway station places where you can eat within the area and informs how far the place is and the expected walking time. 
