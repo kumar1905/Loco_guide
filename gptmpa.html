@@ -192,7 +192,7 @@
     // Default Location
     const defaultLatLng = [47.210750, -122.542540];
 
-    var map = L.map('map').setView(defaultLatLng, 14);
+    var map = L.map('map').setView(defaultLatLng, 20);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: 'Leaflet &copy; OpenStreetMap contributors',
       maxZoom: 18
@@ -213,7 +213,7 @@
           var lng = position.coords.longitude;
           var userLatLng = L.latLng(lat, lng);
 
-          map.setView(userLatLng, 14);
+          map.setView(userLatLng,12);
           userMarker.setLatLng(userLatLng);
 
           if (destinationLatLng && isARModeEnabled) {

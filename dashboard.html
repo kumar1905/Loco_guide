@@ -1,144 +1,510 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Railway Navigation Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enhanced Railway Navigation Dashboard</title>
+
+  <!-- Leaflet CSS & Leaflet Routing Machine CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <style>
+    /* Basic Reset/Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    /* Header styles */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #222;
+      color: #fff;
+      padding: 10px 20px;
+    }
+    header .logo h1 {
+      margin: 0;
+    }
+    header nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+    header nav li {
+      margin-left: 20px;
+    }
+    header nav a {
+      color: #fff;
+      text-decoration: none;
+    }
+    /* Search Container */
+    .search-container {
+      display: flex;
+      align-items: center;
+    }
+    .search-container input {
+      padding: 6px;
+      border-radius: 4px;
+      border: none;
+      margin-right: 5px;
+    }
+    .search-container button {
+      padding: 6px 10px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* Mode Toggle Button */
+    .mode-toggle {
+      margin-left: 20px;
+      background: #444;
+      border: none;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* Options Nav */
+    .options {
+      display: flex;
+      padding: 10px 20px;
+      background: #f8f8f8;
+      border-bottom: 1px solid #ccc;
+    }
+    .options button {
+      margin-right: 10px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* Main Container with Map + Station Info */
+    main {
+      display: flex;
+    }
+    /* Map Container */
+    #map {
+      width: 70%;
+      height: calc(100vh - 200px);
+    }
+    /* Station Info Container */
+    .station-info {
+      width: 30%;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      height: calc(100vh - 200px);
+      background: #f2f2f2;
+    }
+    /* Facilities & Searching */
+    .facility-item {
+      display: flex;
+      justify-content: space-between;
+      background: #fff;
+      border: 1px solid #ccc;
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 4px;
+      align-items: center;
+    }
+    .facility-item:hover {
+      background: #e9ecef;
+    }
+    .navigate-btn {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+    /* Real-time Train Info Panel */
+    .train-info {
+      background: #fff;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .train-info h3 {
+      margin-top: 0;
+    }
+    /* Footer */
+    footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+    }
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 6px;
+    }
+    /* Leaflet Routing Panel customization (optional) */
+    .leaflet-routing-container {
+      margin-top: 10px;
+    }
+    /* Dark Mode Toggle */
+    .dark-mode {
+      background: #111;
+      color: #eee;
+    }
+    .dark-mode header,
+    .dark-mode footer {
+      background: #111;
+    }
+    .dark-mode .mode-toggle {
+      background: #333;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <h1>Railway Navigation</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="search-container">
-            <input type="text" placeholder="Search station or facility..." />
-            <button type="submit"><i class="fas fa-search"></i></button>
-        </div>
-        <button id="modeToggle" class="mode-toggle"><i class="fas fa-sun"></i></button>
-    </header>
-
-    <nav class="options">
-        <button id="startNavigation"><i class="fas fa-map-signs"></i> Start Navigation</button>
-        <button id="setAlarm"><i class="fas fa-bell"></i> Set Alarm</button>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <h1>Railway Navigation</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
     </nav>
-
-    <main>
-        <section class="station-info">
-            <div class="info-container">
-                <div class="arrival-info">
-                    <h2>Next Station: <span id="nextStation">Central Station</span></h2>
-                    <h2>Arriving In: <span id="arrivalTime">--</span></h2>
-                </div>
-                <div class="crowd-density">
-                    <h3>Crowd Density</h3>
-                    <div class="crowd-bar">
-                        <div class="optimal-crowd" style="width: 30%;">Optimal</div>
-                        <div class="minimal-crowd" style="width: 20%;">Minimal</div>
-                        <div class="maximal-crowd" style="width: 50%;">Maximal</div>
-                    </div>
-                    <p id="currentCrowd">Current Density: Medium</p>
-                </div>
-            </div>
-
-            <div class="facilities">
-                <h3>Facilities Available at Approaching Station:</h3>
-                <div class="facilities-grid">
-                    <div class="facility"><i class="fas fa-restroom"></i> Restroom</div>
-                    <div class="facility"><i class="fas fa-utensils"></i> Food Court</div>
-                    <div class="facility"><i class="fas fa-coffee"></i> Coffee Store</div>
-                    <div class="facility"><i class="fas fa-money-bill-wave"></i> ATM</div>
-                    <div class="facility"><i class="fas fa-chair"></i> Waiting Area</div>
-                    <div class="facility"><i class="fas fa-wheelchair"></i> Wheelchair Accessible</div>
-                    <div class="facility"><i class="fas fa-train"></i> Platform Information</div>
-                    <div class="facility"><i class="fas fa-map-marked-alt"></i> Station Map</div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 Enhanced Railway Navigation. All rights reserved.</p>
-    </footer>
-
-    <div class="animation-container">
-        <div class="animated-shape"></div>
+    <div class="search-container">
+      <input type="text" id="stationSearch" placeholder="Search railway station..." />
+      <button id="searchBtn" type="submit"><i class="fas fa-search"></i></button>
     </div>
+    <button id="modeToggle" class="mode-toggle"><i class="fas fa-sun"></i></button>
+  </header>
 
-    <div id="alarmModal" class="modal">
-        <div class="modal-content">
-            <h2>Set Alarm</h2>
-            <label for="stationName">Destination Station:</label>
-            <input type="text" id="stationName" placeholder="Enter destination station">
-            <label for="alarmSound">Choose Alarm Sound:</label>
-            <select id="alarmSound">
-                <option value="sound1">Sound 1</option>
-                <option value="sound2">Sound 2</option>
-                <option value="sound3">Sound 3</option>
-                <option value="sound3">Sound 4</option>
-            </select>
-            <button id="confirmAlarm">Set Alarm</button>
+  <!-- Options Nav -->
+  <nav class="options">
+    <button id="startNavigation"><i class="fas fa-map-signs"></i> AR Navigation</button>
+    <button id="setAlarm"><i class="fas fa-bell"></i> Set Alarm</button>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Map Section -->
+    <div id="map"></div>
+
+    <!-- Station Info Section -->
+    <section class="station-info">
+      <!-- Station details + nearby facilities -->
+      <div id="stationDetails" style="display: none;">
+        <h2 id="stationNameHeading"></h2>
+        <p id="stationDescription"></p>
+        <!-- Button to refresh real-time train info -->
+        <button id="refreshTrainInfo" style="margin-bottom:10px;">Refresh Train Info</button>
+        <!-- Real-time Train Info Panel -->
+        <div id="trainInfo" class="train-info" style="display: none;">
+          <h3>Real-Time Train Info</h3>
+          <div id="trainInfoContent">
+            <!-- Dynamic train info will be inserted here -->
+          </div>
         </div>
+        <div id="nearbyFacilities" style="display: none;">
+          <h3>Nearby Coffee Shops & Food Courts:</h3>
+          <!-- Facility items injected here -->
+        </div>
+      </div>
+
+      <!-- Info panel for distance/time from Leaflet Routing Machine -->
+      <div class="info-panel">
+        <p>Distance: <span id="distance"></span></p>
+        <p>Time: <span id="time"></span></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Enhanced Railway Navigation. All rights reserved.</p>
+  </footer>
+
+  <!-- Alarm Modal -->
+  <div id="alarmModal" class="modal">
+    <div class="modal-content">
+      <h2>Set Alarm</h2>
+      <label for="alarmStationName">Destination Station:</label>
+      <input type="text" id="alarmStationName" placeholder="Enter destination station" />
+      <label for="alarmSound">Choose Alarm Sound:</label>
+      <select id="alarmSound">
+        <option value="sound1">Sound 1</option>
+        <option value="sound2">Sound 2</option>
+        <option value="sound3">Sound 3</option>
+        <option value="sound4">Sound 4</option>
+      </select>
+      <button id="confirmAlarm">Set Alarm</button>
     </div>
+  </div>
 
-    <script>
-        document.getElementById('startNavigation').addEventListener('click', function() {
-            window.location.href = 'gptmpa.html';
+  <!-- Leaflet JS & Leaflet Routing Machine JS -->
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+  <script>
+    /* -----------------------------------
+       1) Initialize Map & Routing
+       (Default view set to match OpenStationMap link)
+    -------------------------------------*/
+    let map;
+    let routingControl;
+    let userMarker;
+    let routePanel;
+    let currentStation = null; // holds current station data
+
+    function initMap() {
+      // Default location from the provided link: lat=17.4495, lon=78.4672 and zoom level ~12
+      const defaultLatLng = [17.4495, 78.4672];
+      map = L.map('map').setView(defaultLatLng, 12);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Leaflet &copy; OpenStreetMap contributors',
+        maxZoom: 18
+      }).addTo(map);
+
+      userMarker = L.marker(defaultLatLng).addTo(map);
+
+      routingControl = L.Routing.control({
+        routeWhileDragging: false,
+        showAlternatives: false,
+        addWaypoints: false,
+        lineOptions: { styles: [{ color: '#007bff', opacity: 1, weight: 5 }] },
+        createMarker: function() { return null; }
+      }).on('routesfound', function(e) {
+        const summary = e.routes[0].summary;
+        document.getElementById('distance').innerHTML = (summary.totalDistance / 1000).toFixed(2) + ' km';
+        document.getElementById('time').innerHTML = (summary.totalTime / 60).toFixed(2) + ' minutes';
+      }).addTo(map);
+
+      routePanel = document.getElementsByClassName('leaflet-routing-container')[0];
+    }
+
+    /* -----------------------------------
+       2) Station Search, Details & Facilities
+       (Search only railway stations)
+    -------------------------------------*/
+    function searchStation() {
+      let query = document.getElementById('stationSearch').value.trim();
+      if (!query) {
+        alert("Please enter a station name.");
+        return;
+      }
+      // Append "railway station" to the query to narrow the search.
+      query = query + " railway station";
+      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.length > 0) {
+            const result = data[0];
+            currentStation = result;
+            document.getElementById('stationNameHeading').innerText = result.display_name;
+            document.getElementById('stationDescription').innerText =
+              `Latitude: ${result.lat}, Longitude: ${result.lon}`;
+            document.getElementById('stationDetails').style.display = 'block';
+            document.getElementById('nearbyFacilities').style.display = 'block';
+            // Center the map on the found station.
+            map.setView([result.lat, result.lon], 15);
+
+            // Add a marker for the station.
+            L.marker([result.lat, result.lon]).addTo(map)
+              .bindPopup("Searched Station")
+              .openPopup();
+
+            // Fetch nearby facilities (coffee shops & food courts)
+            fetchNearbyFacilities(result.lat, result.lon);
+            // Fetch additional station details (e.g., real-time train info)
+            fetchStationDetails(result.lat, result.lon);
+          } else {
+            alert('Station not found! Please try another search term.');
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching station details:', error);
+          alert('Error fetching station details. Please try again later.');
+        });
+    }
+
+    function fetchNearbyFacilities(lat, lon) {
+      const radius = 1000;
+      const overpassQuery = `[out:json];(node["amenity"="cafe"](around:${radius},${lat},${lon});node["amenity"="fast_food"](around:${radius},${lat},${lon}););out;`;
+      const url = "https://overpass-api.de/api/interpreter?data=" + encodeURIComponent(overpassQuery);
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          displayNearbyFacilities(data.elements);
+        })
+        .catch(error => {
+          console.error("Error fetching nearby facilities:", error);
+        });
+    }
+
+    function displayNearbyFacilities(facilities) {
+      const container = document.getElementById("nearbyFacilities");
+      container.innerHTML = "<h3>Nearby Coffee Shops & Food Courts:</h3>";
+      if (!facilities || facilities.length === 0) {
+        container.innerHTML += "<p>No nearby facilities found.</p>";
+        return;
+      }
+      facilities.forEach(facility => {
+        const facilityDiv = document.createElement("div");
+        facilityDiv.className = "facility-item";
+
+        const facilityType = facility.tags.amenity === "cafe" ? "Coffee Shop" : "Food Court";
+        const facilityName = facility.tags.name || "Unnamed";
+        facilityDiv.innerHTML = `<span><i class="fas fa-${facility.tags.amenity === "cafe" ? "coffee" : "utensils"}"></i> ${facilityType} - ${facilityName}</span>`;
+
+        const navBtn = document.createElement("button");
+        navBtn.className = "navigate-btn";
+        navBtn.innerText = "Navigate";
+        navBtn.addEventListener("click", () => {
+          navigateToFacility(facility.lat, facility.lon);
         });
 
-        document.getElementById('setAlarm').addEventListener('click', function() {
-            document.getElementById('alarmModal').style.display = 'flex';
+        facilityDiv.appendChild(navBtn);
+        container.appendChild(facilityDiv);
+      });
+    }
+
+    /* -----------------------------------
+       3) Additional API Integration: Station Details
+       (Simulating integration with an OpenStationMap or similar API)
+    -------------------------------------*/
+    function fetchStationDetails(lat, lon) {
+      // NOTE: Replace the URL below with the actual API endpoint and parameters.
+      const apiUrl = `https://api.openstationmap.org/v1/station-details?lat=${lat}&lon=${lon}`;
+      // For demo purposes, we simulate an API call with dummy data:
+      // Uncomment and adjust the fetch below if you have an actual API.
+      /*
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          displayTrainInfo(data);
+        })
+        .catch(error => {
+          console.error("Error fetching station extra details:", error);
         });
+      */
+      // Simulated data:
+      const dummyData = {
+        trains: [
+          { name: "Train A", status: "On Time", arrival: "12:30" },
+          { name: "Train B", status: "Delayed", arrival: "12:45" }
+        ]
+      };
+      displayTrainInfo(dummyData);
+    }
 
-        document.getElementById('confirmAlarm').addEventListener('click', function() {
-            document.getElementById('alarmModal').style.display = 'none';
-            // Set the alarm logic here
-            alert('Alarm set for your destination!');
+    function displayTrainInfo(data) {
+      const trainInfoPanel = document.getElementById("trainInfo");
+      const trainInfoContent = document.getElementById("trainInfoContent");
+      trainInfoPanel.style.display = 'block';
+      trainInfoContent.innerHTML = "";
+      if (data && data.trains && data.trains.length > 0) {
+        data.trains.forEach(train => {
+          const div = document.createElement("div");
+          div.innerHTML = `<strong>${train.name}</strong>: ${train.status} (ETA: ${train.arrival})`;
+          trainInfoContent.appendChild(div);
         });
+      } else {
+        trainInfoContent.innerHTML = "No train information available.";
+      }
+    }
 
-        // Toggle light/dark mode
-        const modeToggle = document.getElementById('modeToggle');
-        modeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-            const isDarkMode = document.body.classList.contains('dark-mode');
-            modeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-        });
+    /* -----------------------------------
+       4) Navigation & Routing
+    -------------------------------------*/
+    async function navigateToFacility(destLat, destLng) {
+      try {
+        const position = await getCurrentLocation();
+        const userLat = position.coords.latitude;
+        const userLng = position.coords.longitude;
 
-        async function updateArrivalTime() {
-            try {
-                const location = await getCurrentLocation();
-                const userCoords = {
-                    lat: location.coords.latitude,
-                    lng: location.coords.longitude
-                };
+        userMarker.setLatLng([userLat, userLng]);
+        userMarker.bindPopup("You are here").openPopup();
 
-                // Replace with your next station coordinates
-                const nextStationCoords = {
-                    lat: 21.145800,
-                    lng: 79.088158
-                };
+        routingControl.setWaypoints([
+          L.latLng(userLat, userLng),
+          L.latLng(destLat, destLng)
+        ]);
+      } catch (error) {
+        alert("Could not get your current location.");
+      }
+    }
 
-                const duration = await calculateRoute(userCoords, nextStationCoords);
-                const arrivalTime = new Date(Date.now() + duration * 1000).toLocaleTimeString();
-
-                document.getElementById('arrivalTime').innerText = arrivalTime;
-                document.getElementById('nextStation').innerText = 'Central Station'; // Update with the actual next station name
-
-                setTimeout(updateArrivalTime, 60000); // Update every minute
-            } catch (error) {
-                console.error('Error updating arrival time:', error);
-            }
+    function getCurrentLocation() {
+      return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true });
+        } else {
+          reject("Geolocation not supported");
         }
+      });
+    }
 
-        updateArrivalTime();
-    </script>
+    /* -----------------------------------
+       5) Additional Dashboard Features & Event Listeners
+    -------------------------------------*/
+    document.getElementById('setAlarm').addEventListener('click', function() {
+      document.getElementById('alarmModal').style.display = 'flex';
+    });
+    document.getElementById('confirmAlarm').addEventListener('click', function() {
+      document.getElementById('alarmModal').style.display = 'none';
+      alert('Alarm set for your destination!');
+    });
+
+    document.getElementById('startNavigation').addEventListener('click', function() {
+      window.location.href = "gptmpa.html";
+    });
+
+    const modeToggle = document.getElementById('modeToggle');
+    modeToggle.addEventListener('click', function() {
+      document.body.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      modeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    });
+
+    document.getElementById('searchBtn').addEventListener('click', searchStation);
+    document.getElementById('stationSearch').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        searchStation();
+      }
+    });
+
+    // Refresh train info on button click
+    document.getElementById('refreshTrainInfo').addEventListener('click', function() {
+      if (currentStation) {
+        fetchStationDetails(currentStation.lat, currentStation.lon);
+      } else {
+        alert("Please search for a station first.");
+      }
+    });
+
+    window.onload = function() {
+      initMap();
+    };
+  </script>
 </body>
 </html>
