@@ -11,7 +11,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #5e3023;
+    background-color:#7ab6d0;
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -244,4 +244,15 @@ body.dark-mode {
     --right-bg-color: #252929;
     --input-border-color: #555;
     --input-bg-color: #3c3c3c;
+}
+.logo-container {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+
+.logo {
+    width: 200px; /* Adjust size as needed */
+    height: 200px;
 }
