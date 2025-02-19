@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles1.css">
 </head>
 <body>
-    <div class="theme-toggle">
-        <button id="themeButton">Switch to Dark Mode</button>
-    </div>  
+   
     <div class="container">
         <div class="right-section">
             <div class="form-intro">
@@ -43,25 +41,24 @@
             </div>
         </div>
     </div>
-    <script src="scripts.js"></script>
+    <script src="scrpts1.js"></script>
     <script>
-        // beginning of the web application
-        function validateLogin() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent form from refreshing the page
 
-            // Example credentials check
-            const validUsername = "user";
-            const validPassword = "User@5456";
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
 
-            if (username === validUsername && password === validPassword) {
-                window.location.href = "dashboard.html";
-                return false; // Prevent form submission
-            } else {
-                alert("Invalid username or password");
-                return false; // Prevent form submission
-            }
-        }
+    // Example stored credentials (Replace with database validation later)
+    const validUsername = "user";
+    const validPassword = "User@5456";
+
+    if (username === validUsername && password === validPassword) {
+        alert("Login Successful! Redirecting to Dashboard...");
+        window.location.href = "dashboard.html"; // Redirect to dashboard
+    } 
+});
+
     </script>
 </body>
 </html>
